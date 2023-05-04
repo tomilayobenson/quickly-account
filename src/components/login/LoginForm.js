@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Row, Col, FormGroup, Label, Button } from 'reactstrap';
 import { validateLoginForm } from './validateLoginForm';
@@ -6,7 +7,6 @@ import axios from 'axios';
 import { baseUrl } from '../../shared/baseUrl';
 
 const LoginForm = () => {
-    const [user, setUser] = useState(null);
     const [isShown, setIsShown] = useState(false);
     const togglePassword = () => {
         setIsShown((isShown) => !isShown);
@@ -28,6 +28,7 @@ const LoginForm = () => {
             localStorage.setItem('token', response.data.token);
             // setUser(response.data.user);
             resetForm()
+
         } catch (error) {
             console.error(error);
             console.log('User login failed');

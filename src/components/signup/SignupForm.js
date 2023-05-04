@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Col, FormGroup, Label, Button } from 'reactstrap';
 import { validateSignupForm } from './validateSignupForm';
@@ -6,9 +7,9 @@ import axios from 'axios';
 import { baseUrl } from '../../shared/baseUrl';
 import { inject, observer } from 'mobx-react';
 
-const SignupForm = ({store}) => {
-    const [user, setUser] = useState(null);
+const SignupForm = ({ store }) => {
     const [isShown, setIsShown] = useState(false);
+    const navigate = useNavigate()
     const togglePassword = () => {
         setIsShown(!isShown);
     };
@@ -31,13 +32,18 @@ const SignupForm = ({store}) => {
                 })
             console.log(response.data);
             localStorage.setItem('token', response.data.token);
-            store.updateUser(response.data.user);            
-            resetForm();
+            store.updateUser(response.data.user);
+            // resetForm();
         } catch (error) {
             console.error(error);
             console.log('User signup failed');
         }
     }
+    useEffect(() => {
+        if (store.user) {
+            navigate('/profile');
+        }
+    }, [store.user])
     return (
         <Formik
 

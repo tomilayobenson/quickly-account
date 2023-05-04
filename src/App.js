@@ -10,11 +10,13 @@ function App() {
   return (
     <>
       <Header />
-      <Routes>
-        <Route path='/' element={<Login />} />
-        <Route path='signup' element={<Signup />} />
-        <Route path='profile' element={<Profile />} />
-      </Routes>
+      <div class="d-flex flex-column justify-content-center">
+        <Routes>
+          <Route path='/' element={<Login />} />
+          <Route path='signup' element={<Signup />} />
+          <Route path='profile' element={<Profile />} />
+        </Routes>
+      </div>
       <Footer />
     </>
   );
