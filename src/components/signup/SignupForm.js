@@ -4,8 +4,9 @@ import { Col, FormGroup, Label, Button } from 'reactstrap';
 import { validateSignupForm } from './validateSignupForm';
 import axios from 'axios';
 import { baseUrl } from '../../shared/baseUrl';
+import { inject, observer } from 'mobx-react';
 
-const SignupForm = () => {
+const SignupForm = ({store}) => {
     const [user, setUser] = useState(null);
     const [isShown, setIsShown] = useState(false);
     const togglePassword = () => {
@@ -30,7 +31,7 @@ const SignupForm = () => {
                 })
             console.log(response.data);
             localStorage.setItem('token', response.data.token);
-            setUser(response.data.user);
+            store.updateUser(response.data.user);            
             resetForm();
         } catch (error) {
             console.error(error);
@@ -126,4 +127,4 @@ const SignupForm = () => {
     )
 }
 
-export default SignupForm
+export default inject('store')(observer(SignupForm));

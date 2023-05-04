@@ -26,7 +26,7 @@ const LoginForm = () => {
                 })
             console.log(response.data);
             localStorage.setItem('token', response.data.token);
-            setUser(response.data.user);
+            // setUser(response.data.user);
             resetForm()
         } catch (error) {
             console.error(error);
