@@ -7,8 +7,12 @@ import { baseUrl } from '../../shared/baseUrl';
 
 const LoginForm = () => {
     const [user, setUser] = useState(null);
+    const [isShown, setIsShown] = useState(false);
+    const togglePassword = () => {
+        setIsShown((isShown) => !isShown);
+    };
     const handleLogin = async (values) => {
-        // const token = localStorage.getItem('token')        
+        // const token = localStorage.getItem('token')
         const response = await axios.post(`${baseUrl}auth/login`,
             {
                 email: values.email,
@@ -53,10 +57,18 @@ const LoginForm = () => {
                     <Label htmlFor='password'>
                         Password
                     </Label>
-                    <Field id='password' name='password' placeholder='Password' className='form-control' />
+                    <Field id='password' name='password' placeholder='Password' className='form-control' type={isShown ? 'text' : 'password'} />
                     <ErrorMessage name='password' >
                         {(msg) => <p className='text-danger'> {msg}</p>}
                     </ErrorMessage>
+                    <label htmlFor="checkBox">Show password?</label>
+                    <input
+                        name='checkBox'
+                        id="checkBox"
+                        type="checkbox"
+                        checked={isShown}
+                        onChange={togglePassword}
+                    />
                 </FormGroup>
                 <div className="text-center">
                     <Button type='submit' color='primary' > Login</Button>
