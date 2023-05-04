@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Row, Col, FormGroup, Label, Button } from 'reactstrap';
 import { validateLoginForm } from './validateLoginForm';
+import { inject, observer } from 'mobx-react';
 import axios from 'axios';
 import { baseUrl } from '../../shared/baseUrl';
 
-const LoginForm = () => {
+const LoginForm = ({store}) => {
+    const navigate = useNavigate();
     const [isShown, setIsShown] = useState(false);
     const togglePassword = () => {
         setIsShown((isShown) => !isShown);
     };
-    const handleLogin = async (values, { resetForm }) => {
-        // const token = localStorage.getItem('token')
+    const handleLogin = async (values) => {
         try {
             const response = await axios.post(`${baseUrl}auth/login`,
                 {
@@ -24,16 +25,33 @@ const LoginForm = () => {
                         'Content-Type': 'application/json'
                     }
                 })
-            console.log(response.data);
             localStorage.setItem('token', response.data.token);
-            // setUser(response.data.user);
-            resetForm()
+            
+            try {
+                const response = await axios.get(`${baseUrl}auth/user`,
+                    {
+                        headers: {
+                            'Authorization':`Bearer ${localStorage.getItem('token')}`
+                        }
+                    }
+                );
+                // console.log(response)
+                store.updateUser(response.data.user);
+            } catch(error) {
+                console.error(error);
+                console.log('User fetch failed');
+            }
 
         } catch (error) {
             console.error(error);
             console.log('User login failed');
         }
     }
+    useEffect(() => {
+        if (store.user) {
+            navigate('/profile');
+        }
+    }, [store.user])
     return (
         <Formik
 
@@ -84,4 +102,4 @@ const LoginForm = () => {
     )
 }
 
-export default LoginForm
+export default inject('store')(observer(LoginForm));

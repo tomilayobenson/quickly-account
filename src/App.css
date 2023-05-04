@@ -27,6 +27,9 @@
 .App-link {
   color: #61dafb;
 }
+div.collapse.navbar-collapse {
+  justify-content: center;
+}
 
 @keyframes App-logo-spin {
   from {

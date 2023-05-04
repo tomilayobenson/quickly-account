@@ -1,5 +1,5 @@
 export const validateSignupForm = (values) => {
-    const { email, password, firstName, confirmEmail, confirmPassword } = values;
+    const { email, password, firstName, confirmEmail, confirmPassword,company } = values;
     const pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/; 
     const errors = {}
 
@@ -20,6 +20,9 @@ export const validateSignupForm = (values) => {
         errors.password = 'Must be at least 6 characters'
     } else if (password !== confirmPassword) {
         errors.password = 'Paswords do not match'
+    }
+    if (!company) {
+        errors.company = 'Required'
     }
     return errors;
 }

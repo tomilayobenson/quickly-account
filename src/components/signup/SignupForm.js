@@ -13,7 +13,7 @@ const SignupForm = ({ store }) => {
     const togglePassword = () => {
         setIsShown(!isShown);
     };
-    const handleSignup = async (values, { resetForm }) => {
+    const handleSignup = async (values) => {
         const details = JSON.stringify({
             email: values.email,
             password: values.password,
@@ -30,10 +30,21 @@ const SignupForm = ({ store }) => {
                         'Content-Type': 'application/json'
                     }
                 })
-            console.log(response.data);
             localStorage.setItem('token', response.data.token);
-            store.updateUser(response.data.user);
-            // resetForm();
+            try {
+                const response = await axios.get(`${baseUrl}auth/user`,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        }
+                    }
+                );
+                // console.log(response)
+                store.updateUser(response.data.user);
+            } catch (error) {
+                console.error(error);
+                console.log('User fetch failed');
+            }
         } catch (error) {
             console.error(error);
             console.log('User signup failed');
@@ -123,6 +134,9 @@ const SignupForm = ({ store }) => {
                 <FormGroup>
                     <Label htmlFor="company">Comapny Name</Label>
                     <Field name="company" className="form-control" id="company" />
+                    <ErrorMessage name='company' >
+                        {(msg) => <p className='text-danger'> {msg}</p>}
+                    </ErrorMessage>
                 </FormGroup>
                 <div className="text-center">
                     <Button type='submit' color='primary' >Signup</Button>
