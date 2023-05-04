@@ -11,23 +11,27 @@ const LoginForm = () => {
     const togglePassword = () => {
         setIsShown((isShown) => !isShown);
     };
-    const handleLogin = async (values) => {
+    const handleLogin = async (values, { resetForm }) => {
         // const token = localStorage.getItem('token')
-        const response = await axios.post(`${baseUrl}auth/login`,
-            {
-                email: values.email,
-                password: values.password
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-        if (!response.ok) throw Error(response.message);
-        const data = await response.json();
-        console.log(data);
-        localStorage.setItem('token', data.jwtToken);
-        setUser(data.user);
+        try {
+            const response = await axios.post(`${baseUrl}auth/login`,
+                {
+                    email: values.email,
+                    password: values.password
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+            console.log(response.data);
+            localStorage.setItem('token', response.data.token);
+            setUser(response.data.user);
+            resetForm()
+        } catch (error) {
+            console.error(error);
+            console.log('User login failed');
+        }
     }
     return (
         <Formik

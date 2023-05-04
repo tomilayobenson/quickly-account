@@ -11,27 +11,31 @@ const SignupForm = () => {
     const togglePassword = () => {
         setIsShown(!isShown);
     };
-    const handleSignup = async (values) => {
-        const response = await axios.post(`${baseUrl}auth/signup`,
-            {
-                email: values.email,
-                password: values.password,
-                first_name: values.firstName,
-                last_name: values.lastName,
-                company: {
-                    name: values.company
-                }
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-        if (!response.ok) throw Error(response.message);
-        const data = await response.json();
-        console.log(data);
-        localStorage.setItem('token', data.jwtToken);
-        setUser(data.user);
+    const handleSignup = async (values, { resetForm }) => {
+        const details = JSON.stringify({
+            email: values.email,
+            password: values.password,
+            first_name: values.firstName,
+            last_name: values.lastName,
+            company: {
+                name: values.company
+            }
+        });
+        try {
+            const response = await axios.post(`${baseUrl}auth/signup`, details,
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+            console.log(response.data);
+            localStorage.setItem('token', response.data.token);
+            setUser(response.data.user);
+            resetForm();
+        } catch (error) {
+            console.error(error);
+            console.log('User signup failed');
+        }
     }
     return (
         <Formik
@@ -114,7 +118,7 @@ const SignupForm = () => {
                     <Field name="company" className="form-control" id="company" />
                 </FormGroup>
                 <div className="text-center">
-                    <Button type='submit' color='primary' > Login</Button>
+                    <Button type='submit' color='primary' >Signup</Button>
                 </div>
             </Form>
 
