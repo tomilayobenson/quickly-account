@@ -18,7 +18,7 @@ const Profile = ({ store }) => {
             <h3 className="text-center display-5 mb-5">Error 401</h3>
             <p className="text-center">User is currently not logged in.</p>
             <div className="text-center">
-              <Button color="primary" onClick={() => { navigate('/') }}>Login</Button>
+              <Button color="primary" onClick={() => { navigate('/') }}>Login / Signup</Button>
             </div>
 
           </Col>
