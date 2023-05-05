@@ -1,10 +1,13 @@
 export const validateSignupForm = (values) => {
-    const { email, password, firstName, confirmEmail, confirmPassword,company } = values;
+    const { email, password, firstName, lastName, confirmEmail, confirmPassword,company } = values;
     const pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/; 
     const errors = {}
 
     if (!firstName) {
         errors.firstName = 'Required'
+    }
+    if (!lastName) {
+        errors.lastName = 'Required'
     }
     
     if (!email) {

@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 import Header from './components/Header';
 import { Route, Routes } from 'react-router-dom';
@@ -9,7 +10,8 @@ function App() {
   return (
     <>
       <Header />
-      <div className="d-flex flex-column justify-content-center mt-5">
+      <div className="d-flex flex-column justify-content-center mt-5" data-testid="landing-view">
+      <p>login</p>
         <Routes>
           <Route path='/' element={<Login />} />
           <Route path='signup' element={<Signup />} />

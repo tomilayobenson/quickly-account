@@ -12,7 +12,7 @@ const Profile = ({ store }) => {
   }
   if (!store.user) {
     return (
-      <Container>
+      <Container data-testid="profile-view">
         <Row>
           <Col md={{ offset: 4, size: 4 }} className='align-items-center'>
             <h3 className="text-center display-5 mb-5">Error 401</h3>
@@ -27,20 +27,24 @@ const Profile = ({ store }) => {
     )
   } else {
     return (
-      <Container>
+      <Container data-testid="profile-view">
         <Row>
           <Col xs={{ offset: 1, size: 10 }} md={{ offset: 4, size: 4 }}>
-            <h3 className="text-center display-5">User Profile</h3>
+            <h3 className="text-center display-5 mb-5">User Profile</h3>
             <Card
               style={{
                 width: '100%'
               }}
+              color='light'
+              outline
             >
               <img
                 alt="Generic avatar"
                 src={myAvatar}
+                width="50%"
+                className="mx-auto mt-3"
               />
-              <CardBody>
+              <CardBody className="text-center">
                 <CardTitle tag="h5">
                   {store.user.full_name}
                 </CardTitle>
@@ -51,9 +55,9 @@ const Profile = ({ store }) => {
                   {store.user.email}
                 </CardSubtitle>
                 <CardText>
-                  I currently work with {store.user.Company.name}
+                  I currently work at {store.user.Company.name}.
                 </CardText>
-                <Button onClick={handleButton}>
+                <Button color="primary" onClick={handleButton}>
                   Signout
                 </Button>
               </CardBody>

@@ -31,6 +31,13 @@ div.collapse.navbar-collapse {
   justify-content: center;
 }
 
+.marginB {
+  margin-bottom: 0.3rem;
+}
+.marginL {
+  margin-left: 7px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

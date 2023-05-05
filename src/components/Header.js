@@ -8,7 +8,7 @@ const Header = () => {
 
     return (
         <div>
-            <Navbar dark color="dark" sticky='top' expand='md' className="justify-content-center">
+            <Navbar dark color="dark" sticky='top' expand='md' className="justify-content-center" data-testid="nav-menu">
                 <NavbarToggler onClick={() => setMenuOpen(!menuOpen)} />
                 <Collapse isOpen={menuOpen} navbar>
                     <Nav navbar>

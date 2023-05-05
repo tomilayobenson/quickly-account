@@ -77,14 +77,17 @@ const SignupForm = ({ store }) => {
                 <FormGroup row>
                     <Col md={6}>
                         <Label htmlFor='firstName'>First Name</Label>
-                        <Field id='firstName' name='firstName' placeholder='First Name' className='form-control' />
+                        <Field id='firstName' name='firstName' placeholder='First Name' className='form-control' aria-label="first name" aria-required={true} />
                         <ErrorMessage name='firstName' >
                             {(msg) => <p className='text-danger'> {msg}</p>}
                         </ErrorMessage>
                     </Col>
                     <Col md={6}>
                         <Label htmlFor='lastName'>Last Name</Label>
-                        <Field id='lastName' name='lastName' placeholder='Last Name' className='form-control' />
+                        <Field id='lastName' name='lastName' placeholder='Last Name' className='form-control' aria-label="last name" aria-required={true} />
+                        <ErrorMessage name='lastName' >
+                            {(msg) => <p className='text-danger'> {msg}</p>}
+                        </ErrorMessage>
                     </Col>
                 </FormGroup>
                 <FormGroup row>
@@ -92,7 +95,7 @@ const SignupForm = ({ store }) => {
                         <Label htmlFor='email'>
                             Email
                         </Label>
-                        <Field id='email' name='email' type="email" placeholder='Email' className='form-control' />
+                        <Field id='email' name='email' type="email" placeholder='Email' className='form-control' data-testid="signup-component" aria-label="email" aria-required={true} />
                         <ErrorMessage name='email' >
                             {(msg) => <p className='text-danger'> {msg}</p>}
                         </ErrorMessage>
@@ -101,7 +104,7 @@ const SignupForm = ({ store }) => {
                         <Label htmlFor='confirmEmail'>
                             Confirm Email
                         </Label>
-                        <Field id='confirmEmail' name='confirmEmail' type="email" placeholder='Retype email' className='form-control' />
+                        <Field id='confirmEmail' name='confirmEmail' type="email" placeholder='Retype email' className='form-control' aria-label="confirm email" aria-required={true} />
                     </Col>
                 </FormGroup>
                 <FormGroup row>
@@ -109,37 +112,36 @@ const SignupForm = ({ store }) => {
                         <Label htmlFor='password'>
                             Password
                         </Label>
-                        <Field id='password' name='password' placeholder='Password' className='form-control' type={isShown ? 'text' : 'password'} />
+                        <Field id='password' name='password' placeholder='Password' className='form-control' type={isShown ? 'text' : 'password'} aria-label="password" aria-required={true} />
                         <ErrorMessage name='password' >
-                            {(msg) => <p className='text-danger'> {msg}</p>}
+                            {(msg) => <p className='text-danger marginB'> {msg}</p>}
                         </ErrorMessage>
+                        <label htmlFor="checkBox">Show password? </label>
+                        <input
+                            name='checkBox'
+                            id="checkBox"
+                            type="checkbox"
+                            checked={isShown}
+                            onChange={togglePassword}
+                            className="marginL"
+                        />
                     </Col>
                     <Col md={6}>
                         <Label htmlFor='confirmPassword'>
                             Confirm Password
                         </Label>
-                        <Field id='confirmPassword' name='confirmPassword' placeholder='Retype password' className='form-control' type={isShown ? 'text' : 'password'} />
+                        <Field id='confirmPassword' name='confirmPassword' placeholder='Retype password' className='form-control' type={isShown ? 'text' : 'password'} aria-label="confirm password" aria-required={true} />
                     </Col>
                 </FormGroup>
                 <FormGroup>
-                    <label htmlFor="checkBox">Show password?</label>
-                    <input
-                        name='checkBox'
-                        id="checkBox"
-                        type="checkbox"
-                        checked={isShown}
-                        onChange={togglePassword}
-                    />
-                </FormGroup>
-                <FormGroup>
                     <Label htmlFor="company">Comapny Name</Label>
-                    <Field name="company" className="form-control" id="company" />
+                    <Field name="company" className="form-control" id="company" aria-label="company name" aria-required={true} />
                     <ErrorMessage name='company' >
                         {(msg) => <p className='text-danger'> {msg}</p>}
                     </ErrorMessage>
                 </FormGroup>
                 <div className="text-center">
-                    <Button type='submit' color='primary' >Signup</Button>
+                    <Button type='submit' color='primary' role="button" >Signup</Button>
                 </div>
             </Form>
 

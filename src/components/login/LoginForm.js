@@ -63,14 +63,13 @@ const LoginForm = ({store}) => {
 
             onSubmit={handleLogin}
             validate={validateLoginForm}
-
         >
-            <Form>
+            <Form >
                 <FormGroup>
-                    <Label htmlFor='email'>
+                    <Label htmlFor='email' data-testid="login-component">
                         Email
                     </Label>
-                    <Field id='email' name='email' type="email" placeholder='Email' className='form-control' />
+                    <Field id='email' name='email' type="email" placeholder='Email' className='form-control' aria-label="email" aria-required={true}/>
                     <ErrorMessage name='email' >
                         {(msg) => <p className='text-danger'> {msg}</p>}
                     </ErrorMessage>
@@ -80,9 +79,9 @@ const LoginForm = ({store}) => {
                     <Label htmlFor='password'>
                         Password
                     </Label>
-                    <Field id='password' name='password' placeholder='Password' className='form-control' type={isShown ? 'text' : 'password'} />
+                    <Field id='password' name='password' placeholder='Password' className='form-control' type={isShown ? 'text' : 'password'} aria-label="password" aria-required={true}/>
                     <ErrorMessage name='password' >
-                        {(msg) => <p className='text-danger'> {msg}</p>}
+                        {(msg) => <p className='text-danger marginB'> {msg}</p>}
                     </ErrorMessage>
                     <label htmlFor="checkBox">Show password?</label>
                     <input
@@ -91,10 +90,11 @@ const LoginForm = ({store}) => {
                         type="checkbox"
                         checked={isShown}
                         onChange={togglePassword}
+                        className="marginL"
                     />
                 </FormGroup>
                 <div className="text-center">
-                    <Button type='submit' color='primary' > Login</Button>
+                    <Button type='submit' color='primary' role="button" > Login</Button>
                 </div>
             </Form>
 
