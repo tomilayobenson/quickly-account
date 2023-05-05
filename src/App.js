@@ -11,7 +11,6 @@ function App() {
     <>
       <Header />
       <div className="d-flex flex-column justify-content-center mt-5" data-testid="landing-view">
-      <p>login</p>
         <Routes>
           <Route path='/' element={<Login />} />
           <Route path='signup' element={<Signup />} />
